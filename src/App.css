@@ -1,0 +1,91 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    font-size: 20px;
+    color: black;
+}
+
+:root {
+    /* colores */
+    --primer-color: rgb(255, 82, 82);
+    --segundo-color: rgb(255, 255, 255);
+    --tercer-color:rgb(34, 34, 34);
+    --primer-bk-color: rgb(255, 255, 255);
+    --segundo-bk-color: rgb(201, 201, 201);
+
+    /* tamaños */
+    --primer-titulo: 35px;
+    --segundo-titulo: 25px;
+
+    /* grosor */
+    --weight-400: 400;
+    --weight-600: 600;
+    --weight-900: 900;
+
+    /* bordes */
+    --radius: 10px;
+}
+
+/* ---------- REUSABLES ---------- */
+a {
+    color: var(--segundo-color);
+}
+
+/* ---------- MAIN ---------- */
+main {
+    /* border: 3px solid green; */
+    background-color: var(--segundo-bk-color);
+    height: 80vh;
+}
+
+/* ---------- HEADER ---------- */
+header {
+    /* border: 3px solid red; */
+    height: 10vh;
+    background-color: var(--tercer-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+}
+
+    /* logo */
+    .logo {
+        /* border: 3px solid blue; */
+        height: 50px;
+        width: 120px;
+        /* border-radius: 20px; */
+    }
+
+    img {
+        /* border: 3px solid blue; */
+        height: 100%;
+        width: 100%;
+        border-radius: var(--radius);
+    }
+
+    /* menu */
+    nav {
+        /* border: 3px solid red; */
+        display: flex;
+        gap: 20px;
+    }
+
+    nav a {
+        font-size: var(--segundo-titulo);
+        font-weight: var(--weight-900);
+    }
+
+/* ---------- FOOTER ---------- */
+footer {
+    /* border: 3px solid red; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    height: 10vh;
+    background-color: var(--tercer-color);
+    font-weight: var(--weight-900);
+}
