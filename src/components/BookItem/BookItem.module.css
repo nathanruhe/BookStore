@@ -1,0 +1,64 @@
+
+/* MODULES CSS */
+
+
+/* .container {
+    background-color: white;
+    height: 450px;
+    width: 250px;
+    box-shadow: 0 0 10px 2px black;
+    border-radius: 10px;
+}
+
+    .containerFoto {
+        height: 70%;
+        
+    }
+
+        .containerFoto img {
+            height: 100%;
+            width: 100%;
+            border-radius: 10px 10px 0 0;
+        }
+
+    .containerInfo {
+        height: 30%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 15px;
+        padding: 10px;
+    }
+
+        .containerInfo p {
+            font-size: 16px;
+        }
+
+        .containerTitle {
+            font-weight: 900;
+            
+        }
+
+        .containerName {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+            .Gen {
+                background-color: rgb(116, 121, 145);
+                color: white;
+                padding: 5px 10px;
+                border-radius: 20px;
+            }
+
+        .containerPrice {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+            .containerBtn {
+                display: flex;
+                gap: 10px;
+            } */

@@ -1,6 +1,6 @@
-import "./App.css";
-import Header from "./components/header";
-import Footer from "./components/footer";
+import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
+import BooksPage from "./pages/BooksPage";
 
 function App() {
   // logica
@@ -13,7 +13,7 @@ function App() {
   return (
     <>
       <Header/>
-      <main></main>
+      <BooksPage></BooksPage>
       <Footer/>
     </>
   );
