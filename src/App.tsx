@@ -13,7 +13,9 @@ function App() {
   return (
     <>
       <Header/>
-      <BooksPage></BooksPage>
+      <main className="flex flex-col min-h-[80vh] justify-center items-center">
+        <BooksPage />
+      </main>
       <Footer/>
     </>
   );

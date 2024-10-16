@@ -1,4 +1,4 @@
-import BookItem from "../components/BookItem/BookItem";
+import BooksList from "../components/BookList/BookList";
 
 
 function BooksPage () {
@@ -10,9 +10,9 @@ function BooksPage () {
     // renderizado
     return (
       <>
-        <div className="bg-[var(--bk-color)] flex justify-center items-center flex-wrap h-[80vh] gap-[30px]">
-          <BookItem />
-        </div>
+      <div className="bg-[var(--bk-color)] flex justify-center items-center flex-wrap gap-[30px]">
+          <BooksList />
+      </div>
       </>
     );
   }
