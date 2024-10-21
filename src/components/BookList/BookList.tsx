@@ -65,9 +65,11 @@ function BooksList () {
     // renderizado
     return (
       <>
-        <div className="flex flex-wrap gap-8 justify-center p-10">{books.map((book) => (<BookItem key={book.id_book} book={book} />
-      ))}
-    </div>
+        <div className="flex flex-wrap gap-8 justify-center">
+          {books.map((book) => (
+            <BookItem key={book.id_book} book={book} />
+          ))}
+        </div>
       </>
     );
   }

@@ -10,7 +10,7 @@ function BooksPage () {
     // renderizado
     return (
       <>
-      <div className="bg-[var(--bk-color)] flex justify-center items-center flex-wrap gap-[30px]">
+      <div className="bg-[var(--bk-color)] flex justify-center items-center flex-wrap gap-[30px] p-20">
           <BooksList />
       </div>
       </>
