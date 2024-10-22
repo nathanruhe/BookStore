@@ -1,7 +1,7 @@
 import BooksList from "../components/BookList/BookList";
 
 
-function BooksPage () {
+function Books () {
     // logica
   
   
@@ -17,4 +17,4 @@ function BooksPage () {
     );
   }
   
-  export default BooksPage;
+  export default Books;
