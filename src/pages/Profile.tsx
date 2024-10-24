@@ -1,39 +1,22 @@
-import { useState } from "react";
+import { useForm } from "react-hook-form";
 
+// FORMULARIO REACT-HOOK-FORM
 
-// FORMULARIO CONTROLADO COMPLEJO
+type FormValues = {
+  nombre: string;
+  apellidos: string;
+  email: string;
+  foto: string;
+}
 
 function Profile () {
   // logica
 
-  const [formValues, setFormValues] = useState({
-    nombre: '',
-    apellidos: '',
-    email: '',
-    foto: '',
-  });
+  const { register, handleSubmit, formState, reset } = useForm<FormValues>();
 
-  function handleFormValuesChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const name = event.target.name;
-    const value = event.target.value;
-
-    setFormValues({
-      ...formValues,
-      [name]: value,
-    });
-  }
-
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-
-    console.log('Datos actualizados:', formValues);
-
-    setFormValues({
-      nombre: '',
-      apellidos: '',
-      email: '',
-      foto: '',
-    });
+  function onSubmit (data: FormValues) {
+    console.log("Usuario Actualizado", data);
+    reset();
   }
 
   // renderizado
@@ -43,41 +26,77 @@ function Profile () {
 
       <p>Actualiza tus datos de usuario</p>
 
-      <form onSubmit={handleSubmit} className="border-2 border-red-200 bg-red-50 flex flex-col gap-3 m-5 items-center justify-center py-5 px-10">
+      <form onSubmit={handleSubmit(onSubmit)} className="border-2 border-red-200 bg-red-50 flex flex-col m-5 items-center justify-center py-5 px-10">
 
-        <input className="text-center"
-          type="text" 
-          placeholder="Name" 
-          name="nombre" 
-          value={formValues.nombre} 
-          onChange={handleFormValuesChange}
-        />
+        <div className="flex flex-col">
+          <input className="text-center" type="text" placeholder="Nombre" {...register('nombre', {
+              required: {
+                value: true,
+                message: 'Nombre requerido'
+              },
+              minLength: {
+                value: 3,
+                message: 'Mínimo 3 caracteres'
+              },
+              maxLength: {
+                value: 15,
+                message: 'Máximo 15 caracteres'
+              }
+          })}/>
+          <div className="min-h-[25px]">
+            {formState.errors.nombre && (<span className="text-red-500 text-xs pl-2">{formState.errors.nombre.message}</span>)}
+          </div>
+        </div>
 
-        <input className="text-center"
-          type="text" 
-          placeholder="Apellidos" 
-          name="apellidos" 
-          value={formValues.apellidos} 
-          onChange={handleFormValuesChange}
-        />
+        <div className="flex flex-col">
+          <input className="text-center" type="text" placeholder="Apellidos" {...register('apellidos', {
+            required: {
+              value: true,
+              message: 'Apellidos requeridos'
+            },
+            minLength: {
+              value: 3,
+              message: 'Mínimo 3 caracteres'
+            },
+            maxLength: {
+              value: 20,
+              message: 'Máximo 20 caracteres'
+            }
+          })}/>
+          <div className="min-h-[25px]">
+            {formState.errors.apellidos && (<span className="text-red-500 text-xs pl-2">{formState.errors.apellidos.message}</span>)}
+          </div>
+        </div>
 
-        <input className="text-center"
-          type="email" 
-          placeholder="Email" 
-          name="email" 
-          value={formValues.email} 
-          onChange={handleFormValuesChange}
-        />
+        <div className="flex flex-col">
+          <input className="text-center" type="email" placeholder="Email" {...register("email", {
+            required: {
+              value: true,
+              message: 'Email requerido'
+            },
+            pattern: {
+              value: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/,
+              message: 'Email no válido'
+            },
+          })}/>
+          <div className="min-h-[25px]">
+            {formState.errors.email && (<span className="text-red-500 text-xs pl-2">{formState.errors.email.message}</span>)}
+          </div>
+        </div>
 
-        <input className="text-center"
-          type="text" 
-          placeholder="Foto" 
-          name="foto" 
-          value={formValues.foto} 
-          onChange={handleFormValuesChange}
-        />
+        <div className="flex flex-col">
+          <input className="text-center" type="text" placeholder="Foto" {...register('foto', {
+            required: {
+              value: true,
+              message: 'Foto requerida'
+            },
+          })}/>
+          <div className="min-h-[25px]">
+            {formState.errors.foto && (<span className="text-red-500 text-xs pl-2">{formState.errors.foto.message}</span>)}
+          </div>
+        </div>
 
-        <button className="py-1 px-3 bg-blue-200">Actualizar Datos</button>
+        <button className={`py-1 px-3 ${formState.isValid ? 'bg-blue-300' : 'bg-blue-50'}`}>Actualizar Usuario</button>
 
       </form>
     </>

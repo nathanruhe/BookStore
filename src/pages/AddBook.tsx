@@ -1,45 +1,20 @@
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod"
+import bookSchema, { FormValues } from "../schemas/validationZod";
 
-
-// FORMULARIO CONTROLADO COMPLEJO
+// FORMULARIO REACT-HOOK-FORM + ZOD 
 
 function AddBook () {
   // logica
 
-  const [formValues, setFormValues] = useState({
-    Título: '',
-    Autor: '',
-    Genero: '',
-    Foto: '',
-    Precio: '',
+  const { register, handleSubmit, formState, reset } = useForm<FormValues>({
+    resolver: zodResolver(bookSchema),
+    mode: 'onChange'
   });
 
-  function handleFormValuesChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const name = event.target.name;
-    let value: string | number = event.target.value;
-
-    if (name === "Precio" && value !== '') {
-      value = parseFloat(value);
-    }
-  
-    setFormValues({
-      ...formValues,
-      [name]: value,
-    });
-  }
-
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault(); 
-
-    console.log('Libro Añadido:', formValues);
-
-    setFormValues({
-      Título: '',
-      Autor: '',
-      Genero: '',
-      Foto: '',
-      Precio: '',
-    });
+  function onSubmit(data: FormValues) {
+    console.log("Libro Añadido", data);
+    reset();
   }
 
   // renderizado
@@ -49,49 +24,44 @@ function AddBook () {
 
       <p>Añade un libro a tu lista</p>
 
-      <form onSubmit={handleSubmit} className="border-2 border-red-200 bg-red-50 flex flex-col gap-3 m-5 items-center justify-center py-5 px-10">
+      <form onSubmit={handleSubmit(onSubmit)} className="border-2 border-red-200 bg-red-50 flex flex-col m-5 items-center justify-center py-5 px-10">
 
-        <input className="text-center"
-          type="text" 
-          placeholder="Título" 
-          name="Título" 
-          value={formValues.Título} 
-          onChange={handleFormValuesChange}
-        />
+        <div className="flex flex-col">
+          <input className="text-center" type="text" placeholder="Titulo" {...register('titulo')}/>
+          <div className="min-h-[25px]">
+            {formState.errors.titulo && (<span className="text-red-500 text-xs pl-2">{formState.errors.titulo.message}</span>)}
+          </div>
+        </div>
 
-        <input className="text-center"
-          type="text" 
-          placeholder="Autor" 
-          name="Autor" 
-          value={formValues.Autor} 
-          onChange={handleFormValuesChange}
-        />
+        <div className="flex flex-col">
+          <input className="text-center" type="text" placeholder="Autor" {...register('autor')}/>
+          <div className="min-h-[25px]">
+            {formState.errors.autor && (<span className="text-red-500 text-xs pl-2">{formState.errors.autor.message}</span>)}
+          </div>
+        </div>
 
-        <input className="text-center"
-          type="text" 
-          placeholder="Género" 
-          name="Genero" 
-          value={formValues.Genero} 
-          onChange={handleFormValuesChange}
-        />
+        <div className="flex flex-col">
+          <input className="text-center" type="text" placeholder="Genero" {...register('genero')}/>
+          <div className="min-h-[25px]">
+            {formState.errors.genero && (<span className="text-red-500 text-xs pl-2">{formState.errors.genero.message}</span>)}
+          </div>
+        </div>        
 
-        <input className="text-center"
-          type="text" 
-          placeholder="Foto" 
-          name="Foto" 
-          value={formValues.Foto} 
-          onChange={handleFormValuesChange}
-        />
+        <div className="flex flex-col">
+          <input className="text-center" type="text" placeholder="Foto" {...register('foto')}/>
+          <div className="min-h-[25px]">
+            {formState.errors.foto && (<span className="text-red-500 text-xs pl-2">{formState.errors.foto.message}</span>)}
+          </div>
+        </div>  
 
-        <input className="text-center"
-          type="number" 
-          placeholder="Precio" 
-          name="Precio" 
-          value={formValues.Precio} 
-          onChange={handleFormValuesChange}
-        />
+        <div className="flex flex-col">
+          <input className="text-center" type="number" placeholder="Precio" {...register('precio')}/>
+          <div className="min-h-[25px]">
+            {formState.errors.precio && (<span className="text-red-500 text-xs pl-2">{formState.errors.precio.message}</span>)}
+          </div>
+        </div> 
 
-        <button className="py-1 px-3 bg-blue-200">Añadir Libro</button>
+        <button className={`py-1 px-3 ${formState.isValid ? 'bg-blue-300' : 'bg-blue-50'}`}>Añadir Libro</button>
 
       </form>
     </>
