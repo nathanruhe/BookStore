@@ -3,7 +3,7 @@ import { useState } from "react";
 
 // FORMULARIO CONTROLADO COMPLEJO
 
-function AddBook () {
+function EditBook () {
   // logica
 
   const [formValues, setFormValues] = useState({
@@ -31,7 +31,7 @@ function AddBook () {
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault(); 
 
-    console.log('Libro Añadido:', formValues);
+    console.log('Libro Editado:', formValues);
 
     setFormValues({
       Título: '',
@@ -45,9 +45,9 @@ function AddBook () {
   // renderizado
   return (
     <>
-      <h1 className="mb-10">AddBook</h1>
+      <h1 className="mb-10">EditBook</h1>
 
-      <p>Añade un libro a tu lista</p>
+      <p>Edita el libro</p>
 
       <form onSubmit={handleSubmit} className="border-2 border-red-200 bg-red-50 flex flex-col gap-3 m-5 items-center justify-center py-5 px-10">
 
@@ -91,11 +91,11 @@ function AddBook () {
           onChange={handleFormValuesChange}
         />
 
-        <button className="py-1 px-3 bg-blue-200">Añadir Libro</button>
+        <button className="py-1 px-3 bg-blue-200">Actualizar Libro</button>
 
       </form>
     </>
   );
 }
 
-export default AddBook;
+export default EditBook;
