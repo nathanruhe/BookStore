@@ -29,7 +29,7 @@ function BookItem ({ book }: { book: Book }) {
     // renderizado
     return (
       <>
-        <div className="bg-white h-[450px] w-[250px] border shadow-[0_0_10px_black] rounded-lg text-ml">
+        <div className="bg-white h-[450px] w-[250px] border shadow-[0_0_10px_1px_#f87171] rounded-lg text-ml">
             <div className="h-[70%]">
                 <img src={book.photo} alt={book.title} className="h-full w-full rounded-t-lg" />
             </div>

@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import Heading from "../components/Heading/Heading";
 
 // FORMULARIO REACT-HOOK-FORM
 
@@ -8,7 +9,6 @@ type FormValues = {
 }
 
 function Login() {
-  // logica
 
   const { register, handleSubmit, formState, reset } = useForm<FormValues>();
 
@@ -17,54 +17,70 @@ function Login() {
     reset();
   }
 
-  // renderizado
   return (
     <>
-      <h1 className="mb-10">Log In</h1>
+      {/* <Heading className="bg-black py-2 px-4 rounded-2xl" title="Login title"/> */}
+      {/* <Heading className="text-blue-300">Login children</Heading> */}
 
-      <p>¡Loguéate en tu cuenta!</p>
+      <div className="min-h-[68vh] flex flex-col items-center">
 
-      <form onSubmit={handleSubmit(onSubmit)} className="border-2 border-red-200 bg-red-50 flex flex-col m-5 items-center justify-center py-5 px-10">
-
-        <div className="flex flex-col">
-          <input className="text-center" type="email" placeholder="Email.." {...register("email", {
-            required: {
-              value: true,
-              message: 'Email requerido'
-            },
-            pattern: {
-              value: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/,
-              message: 'Email no válido'
-            },
-          })} />
-          <div className="min-h-[25px]">
-            {formState.errors.email && (<span className="text-red-500 text-xs pl-2">{formState.errors.email.message}</span>)}
-          </div>
+        <div className="w-full flex justify-center">
+          <Heading level="h1">Login</Heading>
         </div>
 
-        <div className="flex flex-col">
-          <input className="text-center" type="password" placeholder="Password..." {...register('password', {
-            required: {
-              value: true,
-              message: 'Contraseña requerida'
-            },
-            minLength: {
-              value: 6,
-              message: 'Mínimo 6 caracteres'
-            },
-            pattern: {
-              value: /^(?=.*[A-Z])(?=.*\d)(?=.*[.!@#$%^&*])[A-Za-z\d.!@#$%^&*]{6,}$/,
-              message: 'Requiere número, mayúscula y símbolo'
-            },
-          })} />
-          <div className="min-h-[25px] pl-2">
-            {formState.errors.password && (<span className="text-red-500 text-xs">{formState.errors.password.message}</span>)}
-          </div>
-        </div>
-        
-        <button className={`py-1 px-3 ${formState.isValid ? 'bg-blue-300' : 'bg-blue-50'}`}>Log In</button>
+        <div className="flex-grow flex items-center justify-center">
 
-      </form>
+          <div className="bg-gradient-to-br from-red-200 to-orange-200 shadow-xl rounded-xl flex flex-col gap-6 items-center justify-center py-8 px-10">
+
+            <p>¡Loguéate en tu cuenta!</p>
+
+            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center">
+
+              <div className="flex flex-col">
+                <input className="text-center rounded-md" type="email" placeholder="Email.." {...register("email", {
+                  required: {
+                    value: true,
+                    message: 'Email requerido'
+                  },
+                  pattern: {
+                    value: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/,
+                    message: 'Email no válido'
+                  },
+                })} />
+                <div className="min-h-[25px]">
+                  {formState.errors.email && (<span className="text-red-500 text-xs pl-2">{formState.errors.email.message}</span>)}
+                </div>
+              </div>
+
+              <div className="flex flex-col">
+                <input className="text-center rounded-md" type="password" placeholder="Password..." {...register('password', {
+                  required: {
+                    value: true,
+                    message: 'Contraseña requerida'
+                  },
+                  minLength: {
+                    value: 6,
+                    message: 'Mínimo 6 caracteres'
+                  },
+                  pattern: {
+                    value: /^(?=.*[A-Z])(?=.*\d)(?=.*[.!@#$%^&*])[A-Za-z\d.!@#$%^&*]{6,}$/,
+                    message: 'Requiere número, mayúscula y símbolo'
+                  },
+                })} />
+                <div className="min-h-[25px] pl-2">
+                  {formState.errors.password && (<span className="text-red-500 text-xs">{formState.errors.password.message}</span>)}
+                </div>
+              </div>
+
+              <button className={`py-2 mt-2 w-full text-white rounded-md ${formState.isValid ? 'bg-orange-400' : 'bg-gray-300'}`}>Log In</button>
+
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
     </>
   );
 }

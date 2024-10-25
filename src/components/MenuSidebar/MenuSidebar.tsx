@@ -16,7 +16,7 @@ function MenuSidebar({ toggleSidebar }: MenuSidebarProps) {
             <button onClick={toggleSidebar} className="absolute top-5 right-5">X</button>
 
             <div className="mt-16 flex flex-col items-center mb-10">
-                <Menu vertical />
+                <Menu vertical toggleSidebar={toggleSidebar}/>
             </div>
         </div>
         </>

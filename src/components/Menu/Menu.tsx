@@ -2,14 +2,15 @@ import { NavLink } from "react-router-dom";
 
 type MenuProps = {
   vertical?: boolean;
+  toggleSidebar?: () => void;
 };
 
 
-function Menu ({vertical = false}: MenuProps) {
+function Menu ({vertical = false, toggleSidebar}: MenuProps) {
   // logica
   
-  const user = null;
-  // const user = { name: 'Jonathan' };
+  // const user = null;
+  const user = { name: 'Jonathan' };
 
 
   // renderizado
@@ -17,14 +18,14 @@ function Menu ({vertical = false}: MenuProps) {
     <>
       <nav className={`flex gap-5 text-xl font-bold ${vertical ? "flex-col" : "flex-row"}`}>
 
-        <NavLink to="/">Home</NavLink>
+        <NavLink className="[&.active]:text-red-400" onClick={toggleSidebar} to="/">Home</NavLink>
 
-        {!user && <NavLink to="/register">Register</NavLink>}
-        {!user && <NavLink to="/login">Login</NavLink>}
+        {!user && <NavLink className="[&.active]:text-red-400" onClick={toggleSidebar} to="/register">Register</NavLink>}
+        {!user && <NavLink className="[&.active]:text-red-400" onClick={toggleSidebar} to="/login">Login</NavLink>}
 
-        {user && <NavLink to="/books">Books</NavLink>}
-        {user && <NavLink to="/addbook">AddBook</NavLink>}
-        {user && <NavLink to="/profile">Profile</NavLink>}
+        {user && <NavLink className="[&.active]:text-red-400" onClick={toggleSidebar} to="/books">Books</NavLink>}
+        {user && <NavLink className="[&.active]:text-red-400" onClick={toggleSidebar} to="/addbook">AddBook</NavLink>}
+        {user && <NavLink className="[&.active]:text-red-400" onClick={toggleSidebar} to="/profile">Profile</NavLink>}
 
       </nav>
     </>

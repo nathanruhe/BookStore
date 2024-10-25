@@ -11,17 +11,14 @@ import { Routes, Route } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import PublicRoute from "./components/PublicRoute/PublicRoute";
 
-
-
 function App() {
-  // logica
 
 
-  // renderizado
+
   return (
     <>
       <Header />
-      <main className="flex flex-col min-h-[80vh] justify-center items-center">
+      <main className="flex flex-col min-h-[80vh] justify-center items-center p-12">
         <Routes>
           <Route path="/" element={<Home />}></Route>
 
