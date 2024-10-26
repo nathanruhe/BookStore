@@ -1,4 +1,8 @@
 import { useForm } from "react-hook-form";
+import axios, { AxiosError } from "axios";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 import Heading from "../components/Heading/Heading";
 
 // FORMULARIO REACT-HOOK-FORM
@@ -12,9 +16,25 @@ function Login() {
 
   const { register, handleSubmit, formState, reset } = useForm<FormValues>();
 
-  function onSubmit(data: FormValues) {
-    console.log("Usuario Logueado", data);
-    reset();
+  // EJEMPLO USANDO AXIOS
+  async function onSubmit(data: FormValues) {
+    try {
+      const response = await axios.post("http://localhost:3000/login", data);
+
+      if (response.data.error) {
+        console.log("Error Login", response.data);
+        toast.error(response.data.mensaje);
+      } else {
+        console.log("Usuario Logueado", response.data);
+        toast.success("Usuario Logueado");
+        reset();
+      }
+
+    } catch (error) {
+      console.error(error);
+
+      if (error instanceof AxiosError) toast.error(error.message)
+    }
   }
 
   return (
@@ -37,7 +57,7 @@ function Login() {
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center">
 
               <div className="flex flex-col">
-                <input className="text-center rounded-md" type="email" placeholder="Email.." {...register("email", {
+                <input className="text-center rounded-md" type="email" placeholder="Email" {...register("email", {
                   required: {
                     value: true,
                     message: 'Email requerido'
@@ -53,7 +73,7 @@ function Login() {
               </div>
 
               <div className="flex flex-col">
-                <input className="text-center rounded-md" type="password" placeholder="Password..." {...register('password', {
+                <input className="text-center rounded-md" type="password" placeholder="Password" {...register('password', {
                   required: {
                     value: true,
                     message: 'Contraseña requerida'

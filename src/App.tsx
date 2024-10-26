@@ -10,6 +10,7 @@ import Books from "./pages/Books";
 import { Routes, Route } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import PublicRoute from "./components/PublicRoute/PublicRoute";
+import { ToastContainer } from 'react-toastify';
 
 function App() {
 
@@ -36,6 +37,15 @@ function App() {
         </Routes>
       </main>
       <Footer />
+
+      <ToastContainer
+        closeOnClick={false}
+        draggable={false}
+        pauseOnHover={false}
+        toastClassName="bg-orange-100 text-black font-bold rounded-rl-xl"
+        bodyClassName="text-lg"
+        icon={false}
+      />
     </>
   );
 }

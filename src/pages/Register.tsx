@@ -1,13 +1,17 @@
 import { useForm } from "react-hook-form";
+import axios, { AxiosError } from "axios";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 import Heading from "../components/Heading/Heading";
 
 // FORMULARIO REACT-HOOK-FORM
 
 type FormValues = {
-  nombre: string;
-  apellidos: string;
+  name: string;
+  last_name: string;
   email: string;
-  foto: string;
+  photo: string;
   password: string;
   repeatPassword: string;
 }
@@ -16,9 +20,25 @@ function Register() {
 
   const { register, handleSubmit, formState, watch, reset } = useForm<FormValues>();
 
-  function onSubmit(data: FormValues) {
-    console.log("Usuario Registrado", data);
-    reset();
+  // EJEMPLO USANDO AXIOS
+  async function onSubmit(data: FormValues) {
+    try {
+      const response = await axios.post("http://localhost:3000/register", data);
+
+      if (response.data.error) {
+        console.log("Error Registro", response.data);
+        toast.error(response.data.mensaje);
+      } else {
+        console.log("Usuario Registrado", response.data);
+        toast.success("Usuario Registrado");
+        reset();
+      }
+
+    } catch (error) {
+      console.error(error);
+
+      if (error instanceof AxiosError) toast.error(error.message)
+    }
   }
 
   return (
@@ -38,7 +58,7 @@ function Register() {
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center">
 
               <div className="flex flex-col">
-                <input className="text-center rounded-md" type="text" placeholder="Nombre" {...register('nombre', {
+                <input className="text-center rounded-md" type="text" placeholder="Nombre" {...register('name', {
                   required: {
                     value: true,
                     message: 'Nombre requerido'
@@ -53,12 +73,12 @@ function Register() {
                   }
                 })} />
                 <div className="min-h-[25px]">
-                  {formState.errors.nombre && (<span className="text-red-500 text-xs pl-2">{formState.errors.nombre.message}</span>)}
+                  {formState.errors.name && (<span className="text-red-500 text-xs pl-2">{formState.errors.name.message}</span>)}
                 </div>
               </div>
 
               <div className="flex flex-col">
-                <input className="text-center rounded-md" type="text" placeholder="Apellidos" {...register('apellidos', {
+                <input className="text-center rounded-md" type="text" placeholder="Apellidos" {...register('last_name', {
                   required: {
                     value: true,
                     message: 'Apellidos requeridos'
@@ -73,7 +93,7 @@ function Register() {
                   }
                 })} />
                 <div className="min-h-[25px]">
-                  {formState.errors.apellidos && (<span className="text-red-500 text-xs pl-2">{formState.errors.apellidos.message}</span>)}
+                  {formState.errors.last_name && (<span className="text-red-500 text-xs pl-2">{formState.errors.last_name.message}</span>)}
                 </div>
               </div>
 
@@ -94,14 +114,14 @@ function Register() {
               </div>
 
               <div className="flex flex-col">
-                <input className="text-center rounded-md" type="text" placeholder="Foto" {...register('foto', {
+                <input className="text-center rounded-md" type="text" placeholder="Foto" {...register('photo', {
                   required: {
                     value: true,
                     message: 'Foto requerida'
                   },
                 })} />
                 <div className="min-h-[25px]">
-                  {formState.errors.foto && (<span className="text-red-500 text-xs pl-2">{formState.errors.foto.message}</span>)}
+                  {formState.errors.photo && (<span className="text-red-500 text-xs pl-2">{formState.errors.photo.message}</span>)}
                 </div>
               </div>
 
