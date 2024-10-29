@@ -6,10 +6,13 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import bookSchema, { FormValues } from "../schemas/validationZod";
 import Heading from "../components/Heading/Heading";
+import useUserContext from "../hooks/useUserContext";
 
 // FORMULARIO REACT-HOOK-FORM + ZOD 
 
 function AddBook() {
+
+  const { user } = useUserContext();
 
   const { register, handleSubmit, formState, reset } = useForm<FormValues>({
     resolver: zodResolver(bookSchema),
@@ -18,6 +21,12 @@ function AddBook() {
 
   // EJEMPLO USANDO AXIOS
   async function onSubmit(data: FormValues) {
+
+    if (!user || !user.id_user) {
+      toast.error("No hay usuario logueado.");
+      return;
+    }
+    
     try {
       const response = await axios.post("http://localhost:3000/books", data);
 

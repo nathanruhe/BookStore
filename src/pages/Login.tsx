@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 import Heading from "../components/Heading/Heading";
+import useUserContext from "../hooks/useUserContext";
 
 // FORMULARIO REACT-HOOK-FORM
 
@@ -15,6 +16,7 @@ type FormValues = {
 function Login() {
 
   const { register, handleSubmit, formState, reset } = useForm<FormValues>();
+  const { login } = useUserContext();
 
   // EJEMPLO USANDO AXIOS
   async function onSubmit(data: FormValues) {
@@ -27,6 +29,10 @@ function Login() {
       } else {
         console.log("Usuario Logueado", response.data);
         toast.success("Usuario Logueado");
+
+        // Guardar el usuario en el contexto
+        login(response.data.dataUser)
+        
         reset();
       }
 

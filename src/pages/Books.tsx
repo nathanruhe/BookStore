@@ -6,15 +6,23 @@ import { BiSolidMessageRoundedCheck, BiSolidMessageRoundedError } from "react-ic
 import Heading from "../components/Heading/Heading";
 import BooksList from "../components/BookList/BookList";
 import { Book } from "../components/BookItem/BookItem";
+import useUserContext from "../hooks/useUserContext";
 
 function Books() {
 
+  const { user } = useUserContext();
   const [books, setBooks] = useState<Book[]>([])
 
   // EJEMPLO USANDO FETCH
   async function getBooks() {
+
+    if (!user || !user.id_user) {
+      toast.error("No hay usuario logueado.");
+      return;
+    }
+
     try {
-      const response = await fetch(`http://localhost:3000/books?id_user=6`);
+      const response = await fetch(`http://localhost:3000/books?id_user=${user.id_user}`);
       console.log(response);
 
       if (response.status !== 200) {

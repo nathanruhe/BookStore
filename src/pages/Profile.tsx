@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import Heading from "../components/Heading/Heading";
+import useUserContext from "../hooks/useUserContext";
 
 // FORMULARIO REACT-HOOK-FORM
 
@@ -13,6 +14,9 @@ type FormValues = {
 function Profile() {
 
   const { register, handleSubmit, formState, reset } = useForm<FormValues>();
+  const { user } = useUserContext();
+
+  console.log(user);
 
   function onSubmit(data: FormValues) {
     console.log("Usuario Actualizado", data);
