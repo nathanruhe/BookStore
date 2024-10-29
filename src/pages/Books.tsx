@@ -14,6 +14,9 @@ function Books() {
   const [books, setBooks] = useState<Book[]>([])
 
   // EJEMPLO USANDO FETCH
+
+  // en este caso ponemos la funcion para obtener los libros dentro del useEffect() para evitar el mensaje de advertencia en las dependencias
+  useEffect(() => {
   async function getBooks() {
 
     if (!user || !user.id_user) {
@@ -59,9 +62,9 @@ function Books() {
     }
   }
 
-  useEffect(() => {
     getBooks();
-  }, [])
+
+  }, [user])
 
   return (
     <>

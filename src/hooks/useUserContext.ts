@@ -3,13 +3,13 @@ import { UserContext } from "../contexts/UserProvider";
 
 function useUserContext() {
   
-  const user = useContext(UserContext);
+  const context = useContext(UserContext);
 
-  if (!user) {
+  if (!context) {
     throw new Error('useUserContext solo lo puedes usar dentro de un componente que esté dentro de UserProvider');
   }
 
-  return user;
+  return context;
 }
 
 export default useUserContext;

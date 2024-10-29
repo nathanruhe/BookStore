@@ -1,3 +1,8 @@
+import { Routes, Route } from "react-router-dom";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import PublicRoute from "./components/PublicRoute/PublicRoute";
+import { ToastContainer } from 'react-toastify';
+
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Login from "./pages/Login";
@@ -6,11 +11,8 @@ import Home from "./pages/Home";
 import AddBook from "./pages/AddBook";
 import Profile from "./pages/Profile";
 import Books from "./pages/Books";
-
-import { Routes, Route } from "react-router-dom";
-import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
-import PublicRoute from "./components/PublicRoute/PublicRoute";
-import { ToastContainer } from 'react-toastify';
+import Error404 from "./pages/Error404";
+import EditBook from "./pages/EditBook";
 
 function App() {
 
@@ -32,7 +34,10 @@ function App() {
             <Route path="/books" element={<Books />} />
             <Route path="/addbook" element={<AddBook />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/editbook" element={<EditBook />} />
           </Route>
+
+          <Route path="*" element={<Error404 />} />
 
         </Routes>
       </main>

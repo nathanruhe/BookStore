@@ -1,5 +1,10 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useLocation, useNavigate } from "react-router-dom"
+import axios, { AxiosError } from "axios";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 import bookSchema, { FormValues } from "../schemas/validationZod";
 import Heading from "../components/Heading/Heading";
 
@@ -7,14 +12,39 @@ import Heading from "../components/Heading/Heading";
 
 function EditBook() {
 
-  const { register, handleSubmit, formState, reset } = useForm<FormValues>({
+  const { state: book } = useLocation();
+  const navigate = useNavigate();
+
+  const { register, handleSubmit, formState } = useForm<FormValues>({
     resolver: zodResolver(bookSchema),
-    mode: 'onChange'
+    mode: 'onChange',
+    defaultValues: book
   });
 
-  function onSubmit(data: FormValues) {
-    console.log("Libro Actualizado", data);
-    reset();
+  // EJEMPLO USANDO AXIOS
+  async function onSubmit(data: FormValues) {
+
+    try {
+      // así sería en el caso de que se pasara por parametros
+      // const response = await axios.put(`http://localhost:3000/books/${book.id_book}`, data);
+
+      // así lo ponemos porque en el backend pide que se pase desde el body
+      const response = await axios.put(`http://localhost:3000/books`, {...data, id_book: book.id_book});
+
+      if (response.data.error) {
+        console.log("Error EditBook", response.data);
+        toast.error(response.data.mensaje);
+      } else {
+        console.log("Libro Actualizado", response.data);
+        toast.success("Libro Actualizado");
+        navigate('/books');
+      }
+
+    } catch (error) {
+      console.error(error);
+
+      if (error instanceof AxiosError) toast.error(error.message)
+    }
   }
 
   return (
@@ -29,42 +59,42 @@ function EditBook() {
 
           <div className="bg-gradient-to-br from-red-200 to-orange-200 shadow-xl rounded-xl flex flex-col gap-6 items-center justify-center py-8 px-10">
 
-            <p>Actualiza el libro</p>
+            <p>Actualizar el libro</p>
 
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center">
 
               <div className="flex flex-col">
-                <input className="text-center rounded-md" type="text" placeholder="Titulo" {...register('titulo')} />
+                <input className="text-center rounded-md" type="text" placeholder="Titulo" {...register('title')} />
                 <div className="min-h-[25px]">
-                  {formState.errors.titulo && (<span className="text-red-500 text-xs pl-2">{formState.errors.titulo.message}</span>)}
+                  {formState.errors.title && (<span className="text-red-500 text-xs pl-2">{formState.errors.title.message}</span>)}
                 </div>
               </div>
 
               <div className="flex flex-col">
-                <input className="text-center rounded-md" type="text" placeholder="Autor" {...register('autor')} />
+                <input className="text-center rounded-md" type="text" placeholder="Autor" {...register('author')} />
                 <div className="min-h-[25px]">
-                  {formState.errors.autor && (<span className="text-red-500 text-xs pl-2">{formState.errors.autor.message}</span>)}
+                  {formState.errors.author && (<span className="text-red-500 text-xs pl-2">{formState.errors.author.message}</span>)}
                 </div>
               </div>
 
               <div className="flex flex-col">
-                <input className="text-center rounded-md" type="text" placeholder="Genero" {...register('genero')} />
+                <input className="text-center rounded-md" type="text" placeholder="Genero" {...register('type')} />
                 <div className="min-h-[25px]">
-                  {formState.errors.genero && (<span className="text-red-500 text-xs pl-2">{formState.errors.genero.message}</span>)}
+                  {formState.errors.type && (<span className="text-red-500 text-xs pl-2">{formState.errors.type.message}</span>)}
                 </div>
               </div>
 
               <div className="flex flex-col">
-                <input className="text-center rounded-md" type="text" placeholder="Foto" {...register('foto')} />
+                <input className="text-center rounded-md" type="text" placeholder="Foto" {...register('photo')} />
                 <div className="min-h-[25px]">
-                  {formState.errors.foto && (<span className="text-red-500 text-xs pl-2">{formState.errors.foto.message}</span>)}
+                  {formState.errors.photo && (<span className="text-red-500 text-xs pl-2">{formState.errors.photo.message}</span>)}
                 </div>
               </div>
 
               <div className="flex flex-col">
-                <input className="text-center rounded-md" type="number" placeholder="Precio" {...register('precio')} />
+                <input className="text-center rounded-md" type="text" placeholder="Precio" {...register('price')} />
                 <div className="min-h-[25px]">
-                  {formState.errors.precio && (<span className="text-red-500 text-xs pl-2">{formState.errors.precio.message}</span>)}
+                  {formState.errors.price && (<span className="text-red-500 text-xs pl-2">{formState.errors.price.message}</span>)}
                 </div>
               </div>
 

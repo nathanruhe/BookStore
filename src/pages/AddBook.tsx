@@ -91,7 +91,7 @@ function AddBook() {
               </div>
 
               <div className="flex flex-col">
-                <input className="text-center rounded-md" type="number" placeholder="Precio" {...register('price')} />
+                <input className="text-center rounded-md" type="text" placeholder="Precio" {...register('price')} />
                 <div className="min-h-[25px]">
                   {formState.errors.price && (<span className="text-red-500 text-xs pl-2">{formState.errors.price.message}</span>)}
                 </div>
