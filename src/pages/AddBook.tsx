@@ -28,7 +28,7 @@ function AddBook() {
     }
     
     try {
-      const response = await axios.post("http://localhost:3000/books", data);
+      const response = await axios.post("http://localhost:3000/books", {...data, id_user: user.id_user});
 
       if (response.data.error) {
         console.log("Error AddBook", response.data);
